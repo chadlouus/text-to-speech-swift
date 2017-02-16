@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     var voices: [String] = []
     
     // Voice selected by user in the table view
-    var selectedVoice: String!
+    var selectedVoice: String! = "en-US_MichaelVoice"
     
     // Constants for error handling.
     let kTextFieldEmptyAlertText = "Please enter something for me to say!"
