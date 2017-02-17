@@ -15,8 +15,10 @@
  **/
 
 struct Credentials {
-    static let TextToSpeechUsername = "TtsUsername"
-    static let TextToSpeechPassword = "TtsPassword"
-    static let WatsonTranslatorUsername = "WatsonUsername"
-    static let WatsonTranslatorPassword = "WatsonPassword"
+    // credentials only valid through the end of February, 2017
+    // please create your own services on Bluemix
+    static let TextToSpeechUsername = "a3aa9c83-cd88-4ff3-91e8-d18ea9b3b807"
+    static let TextToSpeechPassword = "Um2SxCR8dzYz"
+    static let WatsonTranslatorUsername = "3c527c9b-8da8-4821-953a-ba55975aad4b"
+    static let WatsonTranslatorPassword = "vdJGrEQHLdrJ"
 }
