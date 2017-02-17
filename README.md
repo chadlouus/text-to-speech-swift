@@ -1,6 +1,8 @@
-# Text to Speech Swift Starter Application
+# Text to Speech and Translator Swift Starter Application
 
 The [Text to Speech][service_url] service uses IBM's speech synthesis capabilities to convert English or Spanish text to an audio signal. The audio is streamed back to the client with minimal delay. The service can be accessed via a REST interface.
+
+It can also translate text into a different language. It's currently configured to translate English into German, but you can update it to translate into other languages that Watson supports.
 
 Give it a try!
 
