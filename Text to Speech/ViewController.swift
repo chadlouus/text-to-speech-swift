@@ -17,8 +17,9 @@
 import UIKit
 import AVFoundation
 import TextToSpeechV1
+import LanguageTranslatorV2
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextViewDelegate {
     
     // MARK: - Properties
     
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
         loadVoices()
         
         // Set up the speak button
-        speakButton.setTitle("SPEAK", for: .normal)
+        speakButton.setTitle("Seak", for: .normal)
         speakButton.setTitleColor(UIColor.white, for: .normal)
         
         // Set up the text view
@@ -71,12 +72,19 @@ class ViewController: UIViewController {
         textView.borderColor = UIColor.lightGray
         textView.borderWidth = 1
         
+        textView.delegate = self
+        
         // Set up the table view
         voicesTableView.delegate = self
         voicesTableView.dataSource = self
         voicesTableView.borderWidth = 1.0
         voicesTableView.borderColor = UIColor.lightGray
     }
+    
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+        speakButton.isEnabled = true
+    }
+
     
     /** Reload the table upon receiving data to display. */
     func receivedDataNotification(object: AnyObject) {
@@ -102,6 +110,29 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func pressedTranslateButton(_ sender: Any) {
+        
+        print("translate button pressed")
+        guard let text = textView.text else {
+            return
+        }
+        let username = Credentials.WatsonTranslatorUsername
+        let password = Credentials.WatsonTranslatorPassword
+        let languageTranslator = LanguageTranslator(username: username, password: password)
+        
+        // set the serviceURL property to use the legacy Language Translation service
+        // languageTranslator.serviceURL = "https://gateway.watsonplatform.net/language-translation/api"
+        
+        let failure = { (error: Error) in print(error) }
+        languageTranslator.translate(text, from: "en", to: "de", failure: failure) {
+            translation in
+            print(translation)
+            DispatchQueue.main.async {
+                self.speakButton.isEnabled = false
+                self.textView.text = translation.translations[0].translation
+            }
+        }
+    }
     /**
      Handle errors and call Text to Speech service to output the audio of the text when the button is pressed.
      - paramater sender: AnyObject that includes information about who is pressing the button.
